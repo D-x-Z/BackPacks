@@ -2,10 +2,14 @@ name: '${project.name}'
 authors: [ VoChiDanh ]
 version: '${project.version}'
 main: net.danh.backpacks.Backpacks
-api-version: 1.16
+api-version: 1.14
 commands:
   backpacks:
     description: BackPacks command
+    aliases:
+      - bp
+      - backpack
+      - bps
 permissions:
   backpacks.getcommand:
     default: op

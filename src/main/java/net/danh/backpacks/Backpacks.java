@@ -7,14 +7,19 @@ import net.danh.backpacks.utils.Files;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
+import org.bukkit.event.Listener;
 import org.bukkit.inventory.RecipeChoice;
 import org.bukkit.inventory.ShapedRecipe;
-import org.bukkit.plugin.java.JavaPlugin;
+import preponderous.ponder.minecraft.bukkit.abs.PonderBukkitPlugin;
+import preponderous.ponder.minecraft.bukkit.nms.NMSAssistant;
+import preponderous.ponder.minecraft.bukkit.tools.EventHandlerRegistry;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Objects;
+import java.util.logging.Level;
 
-public class Backpacks extends JavaPlugin {
+public class Backpacks extends PonderBukkitPlugin implements Listener {
 
     private static Backpacks main;
 
@@ -25,16 +30,9 @@ public class Backpacks extends JavaPlugin {
     public void onEnable() {
 
         main = this;
-
+        performNMSChecks();
         Objects.requireNonNull(getCommand("backpacks")).setExecutor(new Command());
-
-        getServer().getPluginManager().registerEvents(new PlayerInteract(), this);
-        getServer().getPluginManager().registerEvents(new InventoryClose(), this);
-        getServer().getPluginManager().registerEvents(new BlockPlace(), this);
-        getServer().getPluginManager().registerEvents(new InventoryClick(), this);
-        getServer().getPluginManager().registerEvents(new PrepareAnvil(), this);
-        getServer().getPluginManager().registerEvents(new PrepareItemCraft(), this);
-
+        registerEventHandlers();
         Files.getInstance().createconfig();
         createRecipe();
 
@@ -65,4 +63,35 @@ public class Backpacks extends JavaPlugin {
 
     }
 
+
+    private void performNMSChecks() {
+        final NMSAssistant nmsAssistant = new NMSAssistant();
+        if (nmsAssistant.isVersionGreaterThan(13)) {
+            getLogger().log(Level.INFO, "Loading data matching server version " + nmsAssistant.getNMSVersion().toString());
+        } else {
+            getLogger().warning("The server version is not suitable to load the plugin");
+            getLogger().warning("Support version 1.14.x - 1.18.x");
+            Bukkit.getServer().getPluginManager().disablePlugin(this);
+        }
+    }
+
+    private ArrayList<Listener> initializeListeners() {
+        return new ArrayList<>(Arrays.asList(
+                new BlockPlace(),
+                new InventoryClick(),
+                new InventoryClose(),
+                new PlayerInteract(),
+                new PrepareAnvil(),
+                new PrepareItemCraft()
+        ));
+    }
+
+    /**
+     * Registers the event handlers of the plugin using Ponder.
+     */
+    private void registerEventHandlers() {
+        ArrayList<Listener> listeners = initializeListeners();
+        EventHandlerRegistry eventHandlerRegistry = new EventHandlerRegistry();
+        eventHandlerRegistry.registerEventHandlers(listeners, this);
+    }
 }
