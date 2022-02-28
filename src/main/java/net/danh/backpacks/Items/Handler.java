@@ -115,7 +115,21 @@ public class Handler {
                     lore.addAll(index, contentsPreview);
                     continue;
                 }
-                lore.add(Chat.colorize(loreLine.replace("%slots%", Integer.toString(contents.size())).replace("%max%", Integer.toString(Files.getInstance().getconfig().getInt("backpack.rows") * 9))));
+                if (p.hasPermission("bp.1")) {
+                    lore.add(Chat.colorize(loreLine.replace("%slots%", Integer.toString(contents.size()))).replace("%max%", Integer.toString(9)));
+                } else if (p.hasPermission("bp.2")) {
+                    lore.add(Chat.colorize(loreLine.replace("%slots%", Integer.toString(contents.size()))).replace("%max%", Integer.toString(18)));
+                } else if (p.hasPermission("bp.3")) {
+                    lore.add(Chat.colorize(loreLine.replace("%slots%", Integer.toString(contents.size()))).replace("%max%", Integer.toString(27)));
+                } else if (p.hasPermission("bp.4")) {
+                    lore.add(Chat.colorize(loreLine.replace("%slots%", Integer.toString(contents.size()))).replace("%max%", Integer.toString(36)));
+                } else if (p.hasPermission("bp.5")) {
+                    lore.add(Chat.colorize(loreLine.replace("%slots%", Integer.toString(contents.size()))).replace("%max%", Integer.toString(45)));
+                } else if (p.hasPermission("bp.6")) {
+                    lore.add(Chat.colorize(loreLine.replace("%slots%", Integer.toString(contents.size()))).replace("%max%", Integer.toString(54)));
+                } else {
+                    lore.add(Chat.colorize(loreLine.replace("%slots%", Integer.toString(contents.size()))).replace("%max%", Integer.toString(0)));
+                }
                 index++;
             }
 
