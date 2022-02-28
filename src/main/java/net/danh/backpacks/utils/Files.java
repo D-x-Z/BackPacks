@@ -10,20 +10,11 @@ import java.io.IOException;
 
 public class Files {
 
+    private static File configFile;
+    private static FileConfiguration config;
 
-    private static Files instance;
-    private File configFile;
-    private FileConfiguration config;
 
-    public static Files getInstance() {
-
-        if (instance == null) {
-            instance = new Files();
-        }
-        return instance;
-    }
-
-    public void createconfig() {
+    public static void createfiles() {
         configFile = new File(Backpacks.get().getDataFolder(), "config.yml");
 
         if (!configFile.exists()) Backpacks.get().saveResource("config.yml", false);
@@ -36,16 +27,16 @@ public class Files {
         }
     }
 
-    public FileConfiguration getconfig() {
+    public static FileConfiguration getconfig() {
         return config;
     }
 
 
-    public void reloadconfig() {
+    public static void reloadfiles() {
         config = YamlConfiguration.loadConfiguration(configFile);
     }
 
-    public void saveconfig() {
+    public static void saveconfig() {
         try {
             config.save(configFile);
         } catch (IOException ignored) {

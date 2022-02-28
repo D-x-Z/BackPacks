@@ -1,6 +1,6 @@
 package net.danh.backpacks.Events;
 
-import net.danh.backpacks.utils.BackPacks;
+import net.danh.backpacks.utils.BackPacksChecker;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -18,7 +18,7 @@ public class PrepareItemCraft implements Listener {
 
             ItemStack item = e.getInventory().getItem(i);
 
-            if (BackPacks.isBackpack(item) || BackPacks.isnewBackpack(item)) {
+            if (BackPacksChecker.isBackpack(item) || BackPacksChecker.isnewBackpack(item)) {
                 e.getInventory().setResult(new ItemStack(Material.AIR));
                 break;
             }

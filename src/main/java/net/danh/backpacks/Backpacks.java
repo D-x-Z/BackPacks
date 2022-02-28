@@ -1,8 +1,8 @@
 package net.danh.backpacks;
 
-import net.danh.backpacks.Commands.Command;
+import net.danh.backpacks.Commands.Commands;
 import net.danh.backpacks.Events.*;
-import net.danh.backpacks.Items.BackPacksItems;
+import net.danh.backpacks.Items.BackPacks;
 import net.danh.backpacks.utils.Files;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -31,27 +31,27 @@ public class Backpacks extends PonderBukkitPlugin implements Listener {
 
         main = this;
         performNMSChecks();
-        Objects.requireNonNull(getCommand("backpacks")).setExecutor(new Command());
+        Objects.requireNonNull(getCommand("backpacks")).setExecutor(new Commands());
         registerEventHandlers();
-        Files.getInstance().createconfig();
+        Files.createfiles();
         createRecipe();
 
     }
 
     public void onDisable() {
-        Files.getInstance().saveconfig();
+        Files.saveconfig();
     }
 
     public void createRecipe() {
 
-        ShapedRecipe recipe = new ShapedRecipe(new NamespacedKey(this, "backpacks"), BackPacksItems.makenewget());
+        ShapedRecipe recipe = new ShapedRecipe(new NamespacedKey(this, "backpacks"), BackPacks.makenewget());
 
-        recipe.shape(Objects.requireNonNull(Files.getInstance().getconfig().getString("backpack.recipe.shape.top")), Objects.requireNonNull(Files.getInstance().getconfig().getString("backpack.recipe.shape.mid")), Objects.requireNonNull(Files.getInstance().getconfig().getString("backpack.recipe.shape.btm")));
+        recipe.shape(Objects.requireNonNull(Files.getconfig().getString("backpack.recipe.shape.top")), Objects.requireNonNull(Files.getconfig().getString("backpack.recipe.shape.mid")), Objects.requireNonNull(Files.getconfig().getString("backpack.recipe.shape.btm")));
 
-        for (String ingredientKey : Objects.requireNonNull(Files.getInstance().getconfig().getConfigurationSection("backpack.recipe.key")).getKeys(false)) {
+        for (String ingredientKey : Objects.requireNonNull(Files.getconfig().getConfigurationSection("backpack.recipe.key")).getKeys(false)) {
 
             ArrayList<Material> choices = new ArrayList<>();
-            for (String choice : Files.getInstance().getconfig().getStringList("backpack.recipe.key." + ingredientKey)) {
+            for (String choice : Files.getconfig().getStringList("backpack.recipe.key." + ingredientKey)) {
                 choices.add(Material.valueOf(choice));
             }
 

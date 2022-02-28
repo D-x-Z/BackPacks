@@ -1,7 +1,7 @@
 package net.danh.backpacks.Events;
 
 import net.danh.backpacks.Items.Handler;
-import net.danh.backpacks.utils.BackPacks;
+import net.danh.backpacks.utils.BackPacksChecker;
 import net.danh.backpacks.utils.Files;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -11,15 +11,16 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 
 public class InventoryClose implements Listener {
 
     @EventHandler(priority = EventPriority.LOWEST)
-    public void onInventoryClose(InventoryCloseEvent e) {
+    public void onInventoryClose(@NotNull InventoryCloseEvent e) {
 
-        if (!(BackPacks.isBackpack(e.getPlayer().getInventory().getItemInMainHand()) && e.getView().getTitle().equals(Files.getInstance().getconfig().getString("backpack.gui-title"))))
+        if (!(BackPacksChecker.isBackpack(e.getPlayer().getInventory().getItemInMainHand()) && e.getView().getTitle().equals(Files.getconfig().getString("backpack.gui-title"))))
             return;
 
         Inventory playerInventory = Bukkit.createInventory(e.getPlayer(), 54, "");

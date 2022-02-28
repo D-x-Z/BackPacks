@@ -12,6 +12,7 @@ import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.util.io.BukkitObjectInputStream;
 import org.bukkit.util.io.BukkitObjectOutputStream;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -23,7 +24,7 @@ import java.util.Objects;
 
 public class Handler {
 
-    public static void store(Player p, ItemStack backpack, List<ItemStack> contents) {
+    public static void store(Player p, @NotNull ItemStack backpack, List<ItemStack> contents) {
 
         if (!backpack.hasItemMeta()) return;
 
@@ -39,7 +40,7 @@ public class Handler {
 
             ArrayList<String> lore = new ArrayList<>();
 
-            for (String loreLine : Files.getInstance().getconfig().getStringList("backpack.lore.empty")) {
+            for (String loreLine : Files.getconfig().getStringList("backpack.lore.empty")) {
                 if (p.hasPermission("bp.1")) {
                     lore.add(Chat.colorize(loreLine.replace("%slots%", "0")).replace("%max%", Integer.toString(9)));
                 } else if (p.hasPermission("bp.2")) {
@@ -84,7 +85,7 @@ public class Handler {
 
             ArrayList<String> contentsPreview = new ArrayList<>();
 
-            int previewSize = Files.getInstance().getconfig().getInt("backpack.lore.preview-slots-size");
+            int previewSize = Files.getconfig().getInt("backpack.lore.preview-slots-size");
             int counter = 0;
             for (int i = 0; i < previewSize; i++) {
                 try {
@@ -97,12 +98,12 @@ public class Handler {
 
                 counter++;
 
-                contentsPreview.add(Chat.colorize(Objects.requireNonNull(Files.getInstance().getconfig().getString("backpack.lore.contents-preview")).replace("%amount%", Integer.toString(contents.get(i).getAmount())).replace("%name%", contents.get(i).getType().toString().replaceAll("_", " ").toLowerCase())));
+                contentsPreview.add(Chat.colorize(Objects.requireNonNull(Files.getconfig().getString("backpack.lore.contents-preview")).replace("%amount%", Integer.toString(contents.get(i).getAmount())).replace("%name%", contents.get(i).getType().toString().replaceAll("_", " ").toLowerCase())));
 
             }
 
             if (contents.size() > previewSize) {
-                for (String loreLine : Files.getInstance().getconfig().getStringList("backpack.lore.preview-overflow")) {
+                for (String loreLine : Files.getconfig().getStringList("backpack.lore.preview-overflow")) {
                     contentsPreview.add(Chat.colorize(loreLine).replace("%more%", Integer.toString((contents.size() - counter))));
                 }
             }
@@ -110,7 +111,7 @@ public class Handler {
             ArrayList<String> lore = new ArrayList<>();
 
             int index = 0;
-            for (String loreLine : Files.getInstance().getconfig().getStringList("backpack.lore.storing")) {
+            for (String loreLine : Files.getconfig().getStringList("backpack.lore.storing")) {
                 if (loreLine.contains("%preview%")) {
                     lore.addAll(index, contentsPreview);
                     continue;
@@ -144,7 +145,7 @@ public class Handler {
 
     }
 
-    public static ArrayList<ItemStack> get(ItemStack backpack) {
+    public static @NotNull ArrayList<ItemStack> get(@NotNull ItemStack backpack) {
 
         if (!backpack.hasItemMeta()) new ArrayList<ItemStack>();
 

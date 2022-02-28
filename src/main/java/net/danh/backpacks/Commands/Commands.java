@@ -1,21 +1,23 @@
 package net.danh.backpacks.Commands;
 
-import net.danh.backpacks.Items.BackPacksItems;
+import net.danh.backpacks.Items.BackPacks;
 import net.danh.backpacks.utils.Files;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 
-public class Command implements CommandExecutor {
+public class Commands implements CommandExecutor {
 
     public final String noPermission = ChatColor.RED + "You don't have permission to do that.";
     public final String usage = ChatColor.RED + "/backpacks <get|reload|give> [player]";
 
-    public boolean onCommand(CommandSender sender, org.bukkit.command.Command command, String label, String[] args) {
+    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, String @NotNull [] args) {
 
         if (args.length == 0 || args.length > 2) {
 
@@ -37,7 +39,7 @@ public class Command implements CommandExecutor {
                 return true;
             }
 
-            p.getInventory().addItem(BackPacksItems.makenewget());
+            p.getInventory().addItem(BackPacks.makenewget());
         } else if ("give".equalsIgnoreCase(args[0])) {
             if (!sender.hasPermission("backpacks.givecommand")) {
                 sender.sendMessage(noPermission);
@@ -56,14 +58,14 @@ public class Command implements CommandExecutor {
 
             sender.sendMessage(ChatColor.GREEN + "Gave a backpack to " + args[1] + "!");
 
-            Objects.requireNonNull(Bukkit.getPlayer(args[1])).getInventory().addItem(BackPacksItems.makenewget());
+            Objects.requireNonNull(Bukkit.getPlayer(args[1])).getInventory().addItem(BackPacks.makenewget());
         } else if ("reload".equalsIgnoreCase(args[0])) {
             if (!sender.hasPermission("backpacks.reload")) {
                 sender.sendMessage(noPermission);
                 return true;
             }
 
-            Files.getInstance().reloadconfig();
+            Files.reloadfiles();
 
             sender.sendMessage(ChatColor.GREEN + "Backpacks has been reloaded!");
         } else {

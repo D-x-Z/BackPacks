@@ -9,24 +9,25 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.UUID;
 
-public class BackPacksItems {
+public class BackPacks {
 
-    public static ItemStack makenewget() {
+    public static @NotNull ItemStack makenewget() {
 
-        ItemStack backpack = new ItemStack(Material.valueOf(Files.getInstance().getconfig().getString("backpack.material")));
+        ItemStack backpack = new ItemStack(Material.valueOf(Files.getconfig().getString("backpack.material")));
         ItemMeta itemMeta = backpack.getItemMeta();
 
         Objects.requireNonNull(itemMeta).getPersistentDataContainer().set(new NamespacedKey(Backpacks.get(), "backpacks-new"), PersistentDataType.STRING, "");
-        itemMeta.setDisplayName(Chat.colorize(Files.getInstance().getconfig().getString("backpack.name.new")));
+        itemMeta.setDisplayName(Chat.colorize(Files.getconfig().getString("backpack.name.new")));
 
         ArrayList<String> lore = new ArrayList<>();
 
-        for (String loreLine : Files.getInstance().getconfig().getStringList("backpack.lore.new")) {
+        for (String loreLine : Files.getconfig().getStringList("backpack.lore.new")) {
             lore.add(Chat.colorize(loreLine));
         }
 
@@ -36,18 +37,18 @@ public class BackPacksItems {
         return backpack;
     }
 
-    public static ItemStack makeNew(Player p) {
+    public static @NotNull ItemStack makeNew(Player p) {
 
-        ItemStack backpack = new ItemStack(Material.valueOf(Files.getInstance().getconfig().getString("backpack.material")));
+        ItemStack backpack = new ItemStack(Material.valueOf(Files.getconfig().getString("backpack.material")));
         ItemMeta itemMeta = backpack.getItemMeta();
         Objects.requireNonNull(itemMeta).getPersistentDataContainer().set(new NamespacedKey(Backpacks.get(), "backpacks"), PersistentDataType.STRING, "");
         itemMeta.getPersistentDataContainer().set(new NamespacedKey(Backpacks.get(), UUID.randomUUID().toString()), PersistentDataType.STRING, "");
 
-        itemMeta.setDisplayName(Chat.colorize(Files.getInstance().getconfig().getString("backpack.name.regular")));
+        itemMeta.setDisplayName(Chat.colorize(Files.getconfig().getString("backpack.name.regular")));
 
         ArrayList<String> lore = new ArrayList<>();
 
-        for (String loreLine : Files.getInstance().getconfig().getStringList("backpack.lore.empty")) {
+        for (String loreLine : Files.getconfig().getStringList("backpack.lore.empty")) {
             if (p.hasPermission("bp.1")) {
                 lore.add(Chat.colorize(loreLine.replace("%slots%", "0")).replace("%max%", Integer.toString(9)));
             } else if (p.hasPermission("bp.2")) {

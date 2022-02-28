@@ -2,6 +2,7 @@ package net.danh.backpacks.utils;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -22,7 +23,7 @@ public class Chat {
         return input;
     }
 
-    public static String translateHexColorCodes(String startTag, String endTag, String message) {
+    public static @NotNull String translateHexColorCodes(String startTag, String endTag, String message) {
 
         final Pattern hexPattern = Pattern.compile(startTag + "([A-Fa-f0-9]{6})" + endTag);
         Matcher matcher = hexPattern.matcher(message);

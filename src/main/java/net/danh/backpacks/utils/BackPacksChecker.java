@@ -7,10 +7,11 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 
-public class BackPacks {
+public class BackPacksChecker {
 
     public static boolean isBackpack(ItemStack is) {
 
@@ -28,7 +29,7 @@ public class BackPacks {
         return hasKey(is, "backpacks-new", PersistentDataType.STRING);
     }
 
-    public static boolean hasKey(ItemStack is, String targetKey, PersistentDataType<String, String> type) {
+    public static boolean hasKey(@NotNull ItemStack is, String targetKey, PersistentDataType<String, String> type) {
         NamespacedKey key = new NamespacedKey(Backpacks.get(), targetKey);
         ItemMeta itemMeta = is.getItemMeta();
 
