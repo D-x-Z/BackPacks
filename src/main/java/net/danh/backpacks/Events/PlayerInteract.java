@@ -38,7 +38,7 @@ public class PlayerInteract implements Listener {
 
                 is.setAmount(is.getAmount() - 1);
 
-                e.getPlayer().getInventory().addItem(BackPacksItems.makeNew());
+                e.getPlayer().getInventory().addItem(BackPacksItems.makeNew(e.getPlayer()));
 
                 String unboxMsg = Files.getInstance().getconfig().getString("backpack.messages.open");
                 if (!Objects.requireNonNull(unboxMsg).isEmpty()) {

@@ -4,6 +4,7 @@ import net.danh.backpacks.Items.Handler;
 import net.danh.backpacks.utils.BackPacks;
 import net.danh.backpacks.utils.Files;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -12,8 +13,6 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Objects;
 
 public class InventoryClose implements Listener {
 
@@ -38,7 +37,7 @@ public class InventoryClose implements Listener {
             }
         }
 
-        Handler.store(e.getPlayer().getInventory().getItemInMainHand(), tidiedContents);
+        Handler.store((Player) e.getPlayer(), e.getPlayer().getInventory().getItemInMainHand(), tidiedContents);
 
     }
 

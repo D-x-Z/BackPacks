@@ -42,7 +42,6 @@ public class Files {
 
 
     public void reloadconfig() {
-        saveconfig();
         config = YamlConfiguration.loadConfiguration(configFile);
     }
 

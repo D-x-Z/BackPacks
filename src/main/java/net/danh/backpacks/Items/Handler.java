@@ -5,6 +5,7 @@ import net.danh.backpacks.utils.Chat;
 import net.danh.backpacks.utils.Files;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataContainer;
@@ -22,7 +23,7 @@ import java.util.Objects;
 
 public class Handler {
 
-    public static void store(ItemStack backpack, List<ItemStack> contents) {
+    public static void store(Player p, ItemStack backpack, List<ItemStack> contents) {
 
         if (!backpack.hasItemMeta()) return;
 
@@ -39,7 +40,21 @@ public class Handler {
             ArrayList<String> lore = new ArrayList<>();
 
             for (String loreLine : Files.getInstance().getconfig().getStringList("backpack.lore.empty")) {
-                lore.add(Chat.colorize(loreLine.replace("%slots%", "0")).replace("%max%", Integer.toString(Files.getInstance().getconfig().getInt("backpack.rows") * 9)));
+                if (p.hasPermission("bp.1")) {
+                    lore.add(Chat.colorize(loreLine.replace("%slots%", "0")).replace("%max%", Integer.toString(9)));
+                } else if (p.hasPermission("bp.2")) {
+                    lore.add(Chat.colorize(loreLine.replace("%slots%", "0")).replace("%max%", Integer.toString(18)));
+                } else if (p.hasPermission("bp.3")) {
+                    lore.add(Chat.colorize(loreLine.replace("%slots%", "0")).replace("%max%", Integer.toString(27)));
+                } else if (p.hasPermission("bp.4")) {
+                    lore.add(Chat.colorize(loreLine.replace("%slots%", "0")).replace("%max%", Integer.toString(36)));
+                } else if (p.hasPermission("bp.5")) {
+                    lore.add(Chat.colorize(loreLine.replace("%slots%", "0")).replace("%max%", Integer.toString(45)));
+                } else if (p.hasPermission("bp.6")) {
+                    lore.add(Chat.colorize(loreLine.replace("%slots%", "0")).replace("%max%", Integer.toString(54)));
+                } else {
+                    lore.add(Chat.colorize(loreLine.replace("%slots%", "0")).replace("%max%", Integer.toString(0)));
+                }
             }
 
             itemMeta.setLore(lore);
