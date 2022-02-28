@@ -1,0 +1,13 @@
+name: '${project.name}'
+authors: [ VoChiDanh ]
+version: '${project.version}'
+main: net.danh.backpacks.Backpacks
+api-version: 1.16
+commands:
+  backpacks:
+    description: BackPacks command
+permissions:
+  backpacks.getcommand:
+    default: op
+  backpacks.reload:
+    default: op

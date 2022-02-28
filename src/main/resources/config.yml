@@ -1,0 +1,45 @@
+# Colorcode and hex (for 1.16+) support: & for colorcodes, &# for hex
+backpack:
+  recipe:
+    shape:
+      top: "LLL"
+      mid: "ICI"
+      btm: "LLL"
+    key:
+      L:
+        - "LEATHER"
+      I:
+        - "IRON_INGOT"
+      C:
+        - "CHEST"
+  material: CHEST
+  rows: 2
+  gui-title: "BackPacks"
+  allow-shulker-boxes-in-backpacks: false
+  allow-backpacks-in-shulker-boxes: false
+  name:
+    regular: "&eBackpack &7(right-click)"
+    renamed: "&e%name% &7(right-click)"
+    new: "&eNew Backpack"
+  lore:
+    new:
+      - " "
+      - "&bNew backpack, &a&nright click&b to open!"
+      - " "
+    empty:
+      - " "
+      - "&6%slots%/%max% &fslots in use"
+      - " "
+    storing:
+      - " "
+      - "&6%slots%/%max% &fslots in use"
+      - " "
+      - "%preview%"
+    contents-preview: " &f- &7&o%amount%x &f&o%name%"
+    preview-overflow:
+      - " "
+      - " &f&oand &7&o%more% &f&omore..."
+      - " "
+    preview-slots-size: 5
+  messages:
+    unboxed: "&7Backpack opened! &bRight click&7 it to open!"
