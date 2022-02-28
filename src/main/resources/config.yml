@@ -13,7 +13,6 @@ backpack:
       C:
         - "CHEST"
   material: CHEST
-  rows: 2
   gui-title: "BackPacks"
   allow-shulker-boxes-in-backpacks: false
   allow-backpacks-in-shulker-boxes: false
@@ -42,4 +41,5 @@ backpack:
       - " "
     preview-slots-size: 5
   messages:
-    unboxed: "&7Backpack opened! &bRight click&7 it to open!"
+    open: "&7Backpack opened! &bRight click&7 it to open!"
+    no-permission: "&cYou do not enough permission to open backpack!"

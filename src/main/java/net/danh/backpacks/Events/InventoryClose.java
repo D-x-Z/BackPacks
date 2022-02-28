@@ -24,11 +24,19 @@ public class InventoryClose implements Listener {
             return;
 
         Inventory playerInventory = Bukkit.createInventory(e.getPlayer(), 54, "");
-        Arrays.stream(e.getInventory().getContents()).filter(Objects::nonNull).forEach(playerInventory::addItem);
+        for (ItemStack itemStack : e.getInventory().getContents()) {
+            if (itemStack != null) {
+                playerInventory.addItem(itemStack);
+            }
+        }
 
         ArrayList<ItemStack> tidiedContents = new ArrayList<>();
 
-        Arrays.stream(playerInventory.getContents()).filter(Objects::nonNull).forEach(tidiedContents::add);
+        for (ItemStack itemStack : playerInventory.getContents()) {
+            if (itemStack != null) {
+                tidiedContents.add(itemStack);
+            }
+        }
 
         Handler.store(e.getPlayer().getInventory().getItemInMainHand(), tidiedContents);
 
